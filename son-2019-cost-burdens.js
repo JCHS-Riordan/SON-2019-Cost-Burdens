@@ -32,18 +32,18 @@ $(document).ready(function() {
   $.get(H.JCHS.requestURL(sheetID, range), function(obj) {
     categories = obj.values[0]
     ref_data = obj.values.slice(1)
-
+    
     //create the title, notes, and search box
     $('#chart_title').html(chart_title)
     $('#chart_subtitle').html(chart_subtitle)
     $('#table_notes').html(table_notes)
-
+    
     H.JCHS.createSearchBox(ref_data, searchCallback, '', 1, 'search', 'Need help finding a metro? Search here...') //4th argument (the 1) tells the search box to list column index 1 from ref_data, instead of the default 0 (in this case metro name, not GEOID)
 
     //create the chart
-    createChart()
+    createChart() 
 
-  })
+  }) 
 }) //end document.ready
 
 
@@ -75,7 +75,7 @@ function createChart() {
     colorAxis: {
       dataClasses: [
         { from: 0, to : 10 },
-        { from: 10, to: 20 },
+        { from: 10, to: 20 }, 
         { from: 20, to: 30 },
         { from: 30, to: 40 },
         { from: 40, to: 50 },
@@ -102,15 +102,21 @@ function createChart() {
       JCHS: { sheetID: sheetID },
       chartOptions: {
         title: { text: chart_title },
-      }
+      },
+      buttons: {
+        contextButton: {
+          menuItems: ['viewFullDataset']
+        /*menuItems: ['viewFullDataset', 'separator', 'downloadPDF', 'separator', 'downloadPNG', 'downloadJPEG'] */
+        } //end contextButtons
+      } //end buttons
     }, //end exporting
-
+    
     tooltip: {
       formatter: function() {
         var point = this.point
         var series = this.series
-        var user_selection = $('#user_input :checked').val()
-
+        var user_selection = $('#user_input :checked').val()   
+        
         var tooltip_text = ''
         tooltip_text +=  '<b>' +  point.name + '</b>'
 
@@ -158,7 +164,7 @@ function createChart() {
                 tooltip_text += '<br>Homeowner Households with Cost Burdens: <b>' + H.JCHS.numFormat(row[10]) + '</b>'
                 tooltip_text += '<br>Median Homeowner Household Income: <b>$' + H.JCHS.numFormat(row[13]) + '</b>'
                 tooltip_text += '<br>Median Homeowner Monthly Housing Costs: <b>$' + H.JCHS.numFormat(row[16]) + '</b>'
-                break
+                break       
             }
           }
         })
@@ -176,7 +182,7 @@ function createChart() {
     'container',
     chart_options
   ) //end chart
-
+  
 } //end createChart()
 
 /*~~~~~~~~~~~~~~ User interaction ~~~~~~~~~~~~~~~~~~~*/
@@ -186,15 +192,15 @@ function initUserInteraction () {
     var new_data = ref_data.map(function (x) {
       return [x[0], x[new_col]]
     })
-    chart.series[0].update({name: categories[new_col]})
+    chart.series[0].update({name: categories[new_col]})   
     chart.series[0].setData(new_data)
     /*The following code changes the drilldown when the radio buttons change, by calling
-    the drilldownChart function (defined below) -- only when a metro has been selected --
-    and passing as arguments the selected metro name and GEOID, which are created as variables
+    the drilldownChart function (defined below) -- only when a metro has been selected -- 
+    and passing as arguments the selected metro name and GEOID, which are created as variables 
     containing empty strings at the top of the code, and assigned in the drilldownChart function.*/
     if(selected_metro_name!="") {
       drilldownChart(selected_metro_name, selected_GEOID)
-    }
+    }    
   })
 }
 
@@ -210,35 +216,35 @@ function drilldownChart(metro_name, GEOID) {
   so that when initUserInteraction fires, drilldownChart will fire*/
   selected_metro_name = metro_name
   selected_GEOID = GEOID
-
-  var selected_hhd_type = $('#user_input :checked').parent('label').text().trim()
-
-  var burden_type = '' //Creating a simple variable to add 'severe' to the drilldown title before 'cost burdens' if one of the severe options is selected; otherwise, no text added
+    
+  var selected_hhd_type = $('#user_input :checked').parent('label').text().trim()  
+  
+  var burden_type = '' //Creating a simple variable to add 'severe' to the drilldown title before 'cost burdens' if one of the severe options is selected; otherwise, no text added 
     if($('#user_input :checked').val() > 4) {burden_type = 'Severe '}
-
+  
   var chart_data = []
-
+  
   ref_data.forEach(function (el) {
     if (el[0] == GEOID) {
       switch ($('#user_input :checked').val()) {
-        case '2':
+        case '2':  
           chart_data = el.slice(18,29) //2006: 17, 2017: 28
           break
-        case '3':
-          chart_data = el.slice(30,41)
+        case '3':  
+          chart_data = el.slice(30,41) 
           break
-        case '4':
-          chart_data = el.slice(42,53)
+        case '4':  
+          chart_data = el.slice(42,53) 
           break
-        case '5':
-          chart_data = el.slice(55,66)
-          break
-        case '6':
-          chart_data = el.slice(68,79)
-          break
-        case '7':
-          chart_data = el.slice(81,92)
-          break
+        case '5':  
+          chart_data = el.slice(55,66) 
+          break  
+        case '6':  
+          chart_data = el.slice(68,79) 
+          break  
+        case '7':  
+          chart_data = el.slice(81,92) 
+          break  
       } //end switch
     } //end if
   }) //end forEach
@@ -249,7 +255,7 @@ function drilldownChart(metro_name, GEOID) {
     },
 
     subtitle: {
-      text:
+      text: 
       'Share of ' + selected_hhd_type + ' with ' + burden_type + 'Cost Burdens in ' + metro_name
     },
 
