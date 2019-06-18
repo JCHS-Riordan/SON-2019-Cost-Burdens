@@ -1,0 +1,47 @@
+@import url('https://code.highcharts.com/6.1.4/css/highcharts.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400');
+@import url('https://s3.amazonaws.com/jchs-app-source-data/JCHS-highchartrs/src/css/JCHS-highcharts.css');
+
+/* change chart colors here */
+.highcharts-color-0 { fill: #ffffe0; stroke: #ffffe0; color: #ffffe0; }
+.highcharts-color-1 { fill: #fcc885; stroke: #fcc885; color: #fcc885; }
+.highcharts-color-2 { fill: #df9550; stroke: #df9550; color: #df9550; }
+.highcharts-color-3 { fill: #b96737; stroke: #b96737; color: #b96737; }
+.highcharts-color-4 { fill: #8c3e33; stroke: #8c3e33; color: #8c3e33; }
+.highcharts-color-5 { fill: #44274d; stroke: #44274d; color: #44274d; }
+
+/* Drilldown CSS */
+.highcharts-area.zone-0,
+.highcharts-point.zone-0  { stroke: #f7f4c5; fill: #f7f4c5; }
+.highcharts-graph.zone-0 { stroke: #f7f4c5; } /*Note: this color slightly darker than on map for visibility*/
+.highcharts-area.zone-1,
+.highcharts-point.zone-1  { stroke: #fcc885; fill: #fcc885; }
+.highcharts-graph.zone-1 { stroke: #fcc885; }
+.highcharts-area.zone-2,
+.highcharts-point.zone-2  { stroke: #df9550; fill: #df9550; }
+.highcharts-graph.zone-2 { stroke: #df9550; }
+.highcharts-area.zone-3,
+.highcharts-point.zone-3  { stroke: #b96737; fill: #b96737; }
+.highcharts-graph.zone-3 { stroke: #b96737; }
+.highcharts-area.zone-4,
+.highcharts-point.zone-4  { stroke: #8c3e33; fill: #8c3e33; }
+.highcharts-graph.zone-4 { stroke: #8c3e33; }
+.highcharts-area.zone-5,
+.highcharts-point.zone-5  { stroke: #44274d; fill: #44274d; }
+.highcharts-graph.zone-5 { stroke: #44274d; }
+
+/*Overriding JCHS package CSS */
+.JCHS-chart__drilldown {
+  min-height: 180px;
+  width: 650px;
+  max-width: 100%;
+  margin: 20px auto;
+  display: none;
+  background: none;
+}
+
+#options_table  {
+  vertical-align: middle;
+  margin: 2px 80px;
+  font-size: 13px;
+}
